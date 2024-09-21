@@ -1,0 +1,2 @@
+# ygclib
+ysmservice製wsグローバルチャットのライブラリ
