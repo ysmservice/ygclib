@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 class YGC():  
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.ws_url = "ws://ysmserv.com:8765"
 
     async def create_json(self, message: discord.Message):
         dic = {} 
