@@ -44,8 +44,10 @@ class YGC():
                 arr.append(embed.to_dict()) 
             dic.update({"embeds": arr})
         if message.reference: 
-            reference_msg = await message.channel.fetch_message(message.reference.message_id) 
+            reference_msg = message.reference.cached_message
             reference_mid = 0
+            if reference_msg == None:
+                reference_msg = message.reference.cached_message1
             r = ujson.loads(await self.create_json(reference_msg))
             if reference_msg.webhook_id != None:  
                 arr = reference_msg.author.name.split(":")
@@ -99,7 +101,7 @@ class YGC():
                 past_dic = dic["reference"]
             except:
                 return message1
-            if "type" in past_dic and past_dic["type"] == "message" and "messageId" in past_dic and str(past_dic["messageId"]) == str(reference_mid):
+            if "type" in past_dic and past_dic["type"] == "message" and "messageId" in past_dic:
                 user = await self.bot.fetch_user(int(past_dic["userId"]))
                 atch = list()
                 c = 0
@@ -128,6 +130,8 @@ class YGC():
                 )
                 if channel.guild is not None:
                     message2.author = channel.guild.get_member(user.id)  # type: ignore
+                    if message2.author == None:
+                        message2.author = user
                 else:
                     message2.author = user
                 message2.id = past_dic["messageId"]
