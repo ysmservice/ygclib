@@ -54,7 +54,7 @@ class YGC():
                reference_mid = str(reference_msg.id) 
                dic.update({"reference": reference_mid})
             r["messageId"] = str(reference_mid)
-        dic["reference"] = r
+            dic["reference"] = r
         jsondata = ujson.dumps(dic, ensure_ascii=False)
         return  jsondata
       
